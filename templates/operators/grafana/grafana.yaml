@@ -3,6 +3,8 @@ kind: Grafana
 metadata:
   name: grafana-server
   namespace: {{ .Release.Namespace }}
+  labels:
+    grafana: "swf.grafana.servers"
 spec:
   config:
     auth:
@@ -10,5 +12,5 @@ spec:
     log:
       mode: console
     security:
-      admin_password: admin
-      admin_user: admin
+      admin_password: {{ .Values.grafana.password}}
+      admin_user: {{ .Values.grafana.username}}

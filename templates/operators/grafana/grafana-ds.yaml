@@ -5,13 +5,13 @@ metadata:
 spec:
   instanceSelector:
     matchLabels:
-      dashboards: "grafana"
+      grafana: "swf.grafana.servers"
   datasource:
     name: prometheus
     type: prometheus
     access: proxy
     basicAuth: true
-    url: {{ (lookup "route.openshift.io/v1" "Route" .Release.Namespace "prometheus-server")}}
+    url: ''
     isDefault: true
     jsonData:
       "tlsSkipVerify": true

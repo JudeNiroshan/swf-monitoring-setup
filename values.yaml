@@ -1,0 +1,6 @@
+swf:
+  image: quay.io/jnirosha/serverless-workflow-greeting-quarkus:1.0-SNAPSHOT
+
+grafana:
+  username: admin
+  password: admin

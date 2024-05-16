@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: wait-for-prometheus-route
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "-5"
+spec:
+  template:
+    spec:
+      containers:
+      - name: wait-for-route
+        image: lachlanevenson/k8s-kubectl:latest
+        command:
+        - /bin/sh
+        - -c
+        - |
+          until curl -s https://$(kubectl get route prometheus-server -n {{ .Release.Namespace }} -o jsonpath='{.spec.host}'); do
+            echo "Waiting for Prometheus route to be available..."
+            sleep 10
+          done
+          echo "Prometheus route is available."
+          PROMETHEUS_URL=https://$(kubectl get route prometheus-server -n {{ .Release.Namespace }} -o jsonpath='{.spec.host}')
+          kubectl patch grafanadatasource grafanadatasource-sample --type='json' -p='[{"op": "replace", "path": "/spec/datasource/url", "value":"'${PROMETHEUS_URL}'"}]'
+      restartPolicy: OnFailure
+  backoffLimit: 4

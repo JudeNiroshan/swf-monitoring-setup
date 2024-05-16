@@ -5,7 +5,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: default
-  namespace: jude
+  namespace: {{ .Release.Namespace }}
 roleRef:
   kind: ClusterRole
   name: prometheus-service-discovery
