@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: serverless-workflow-greeting-quarkus
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.svc: greeting-svc
+spec:
+  selector:
+    app: serverless-workflow-greeting-quarkus
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+    name: http
+  - protocol: TCP
+    port: 8443
+    targetPort: 8443
+    name: https
+  type: ClusterIP

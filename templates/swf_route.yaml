@@ -1,0 +1,15 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: serverless-workflow-greeting-quarkus
+  namespace: {{ .Release.Namespace }}
+spec:
+  to:
+    kind: Service
+    name: serverless-workflow-greeting-quarkus
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+  wildcardPolicy: None

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serverless-workflow-greeting-quarkus
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serverless-workflow-greeting-quarkus
+  template:
+    metadata:
+      labels:
+        app: serverless-workflow-greeting-quarkus
+    spec:
+      containers:
+      - name: serverless-workflow-greeting-quarkus
+        image: quay.io/jnirosha/serverless-workflow-greeting-quarkus:1.0-SNAPSHOT
+        ports:
+        - containerPort: 8080
+        - containerPort: 8443
+        env:
+        - name: QUARKUS_PROFILE
+          value: prod

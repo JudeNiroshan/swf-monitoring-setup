@@ -1,0 +1,10 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus-server
+spec:
+  serviceMonitorSelector:
+    matchLabels:
+      release: prometheus
+  replicas: 1
+  retention: 10d
