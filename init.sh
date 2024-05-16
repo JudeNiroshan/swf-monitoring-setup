@@ -23,10 +23,11 @@ fi
 # Check if the project creation was successful
 if [ $? -eq 0 ]; then
   echo "Project '$PROJECT_NAME' created successfully."
+  oc adm policy add-scc-to-user anyuid -z default
 
   # Add Helm repos for Prometheus and Grafana Operators
 #   helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-#   helm repo add grafana https://grafana.github.io/helm-charts
+# #   helm repo add grafana https://grafana.github.io/helm-charts
 #   helm repo update
 
 #   # Install Prometheus Operator
@@ -50,7 +51,6 @@ if [ $? -eq 0 ]; then
 #     echo "Failed to install Grafana Operator in project '$PROJECT_NAME'."
 #     exit 1
 #   fi
-  oc adm policy add-scc-to-user anyuid -z default
   # Install the Helm chart
   helm install greeting-swf-helm . -n $PROJECT_NAME
 
