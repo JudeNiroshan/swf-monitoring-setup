@@ -1,5 +1,5 @@
 # swf-monitoring-setup
 
 ````
-./init.sh test-ns
+./project_ops.sh my-namespace init
 ````
