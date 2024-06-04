@@ -3,6 +3,11 @@ kind: Subscription
 metadata:
   name: prometheus
   namespace: {{ .Release.Namespace }}
+  labels:
+    "app.kubernetes.io/managed-by": "Helm"
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "0"
 spec:
   channel: beta
   installPlanApproval: Automatic
